@@ -21,6 +21,17 @@ void Nest::render(sf::RenderTarget* target)
 	target->draw(this->shape);
 }
 
-void Nest::update(sf::RenderTarget* target, sf::Vector2f position)
+void Nest::update()
 {
+
+	text.setString("food amount: " + std::to_string(counter));
+	std::to_string(counter);
+}
+void Nest::initFont() {
+
+	font.loadFromFile("C:\\Users\\kemuk\\OneDrive\\Dokumenty\\GitHub\\Bugs\\robaczki\\mcfont.ttf");
+	text.setFont(font);
+	text.setCharacterSize(20);
+	text.setPosition(1710, 25);
+	text.setString("food amount: "+ std::to_string(counter));
 }
