@@ -8,7 +8,9 @@
 #include <time.h>
 #include <random>
 
+
 int main() { 
+	
 	srand(time(NULL));
 	// Init game engine 
 	Game game;
@@ -21,7 +23,6 @@ int main() {
 		game.update();
 		//Render
 		game.render();
-
 		
 
 

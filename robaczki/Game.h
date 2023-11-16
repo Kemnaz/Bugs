@@ -14,9 +14,12 @@ private:
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
 	sf::Event sfmlEvent;
+	sf::RectangleShape menu;
 	bool endGame;
 	Player player;
 	Nest nest;
+	sf::Font font;
+	sf::Text text;
 
 
 	float spawnTimerMax;
@@ -25,6 +28,8 @@ private:
 	std::vector<Food> food;
 	void initVariables();
 	void initWindow();
+	void initMenu();
+	void initFont();
 public:
 	//Constructors /Destructors
 	Game();

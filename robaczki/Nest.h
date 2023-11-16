@@ -8,7 +8,11 @@ private:
 	void initShape();
 
 public:
+	int counter = 0;
 	sf::RectangleShape shape;
+
+	sf::Font font;
+	sf::Text text;
 
 	//constructor
 	Nest(float x = 0.f, float y = 300.f);
@@ -16,6 +20,7 @@ public:
 
 	//functions
 	void render(sf::RenderTarget* target);
-	void update(sf::RenderTarget* target, sf::Vector2f position);
+	void update();
+	void initFont();
 };
 

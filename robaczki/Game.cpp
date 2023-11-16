@@ -5,12 +5,10 @@
 
 
 
-
-
 //private functions
 void Game::initVariables()
 {
-
+	
 	this->window = nullptr;
 	this->spawnTimerMax = 120.f;
 	this->spawnTimer = this->spawnTimerMax;
@@ -25,12 +23,24 @@ void Game::initWindow()
 	this->window = new sf::RenderWindow(this->videoMode, "Robaczki", sf::Style::Titlebar | sf::Style::Close);
 	this->window->setFramerateLimit(60);
 }
+void Game::initMenu() {
+	this->menu.setFillColor(sf::Color::Black);
+	this->menu.setSize(sf::Vector2f(220.f, 1080.f));
+	this->menu.setPosition(sf::Vector2f(1700.f, 0.f));
+}
+void Game::initFont()
+{
+	
+}
 
 // Constructors / Destructors
 
 Game::Game() {
 	this->initVariables();
 	this->initWindow();
+	this->initFont();
+	this->initMenu();
+	this->nest.initFont();
 }
 Game::~Game() {
 	delete this->window;
@@ -65,8 +75,10 @@ void Game::foodNestCollison()
 	for (size_t i = 0; i < this->food.size(); i++) {
 		if (this->nest.shape.getGlobalBounds().intersects(this->food[i].shape.getGlobalBounds()))
 		{
+			nest.counter += 1;
 			player.hasFood = false;
 			this->food.erase(this->food.begin() + i);
+
 		}
 	}
 }
@@ -111,6 +123,7 @@ void Game::update()
 	this->spawnFood();
 	this->player.update(this->window);
 	this->playerFoodCollision();
+	this->nest.update();
 	
 }
 
@@ -122,14 +135,18 @@ void Game::render()
 	* -display frame in window
 	* -Renders the game objects
 	*/
-	this->window->clear(sf::Color(160, 82, 45, 0));
+	
 
+	this->window->clear(sf::Color(160, 82, 45, 0));
 	//Draw game objects
+	
 	this->player.render(this->window);
 	this->nest.render(this->window);
 	for (auto i : this->food) {
 		i.render(this->window);
 
 	}
+	this->window->draw(menu);
+	this->window->draw(nest.text);
 	this->window->display();
 }
