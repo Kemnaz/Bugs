@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include < stdlib.h >
 
 
 
@@ -10,9 +10,9 @@ void Game::initVariables()
 {
 	
 	this->window = nullptr;
-	this->spawnTimerMax = 120.f;
+	this->spawnTimerMax = 30.f;
 	this->spawnTimer = this->spawnTimerMax;
-	this->maxFood = 10;
+	this->maxFood = 100;
 
 }
 
@@ -67,6 +67,46 @@ void Game::pollEvents()
 				this->window->close();
 			break;
 		}
+	}
+}
+void Game::playerMovement() {
+	if(not this->player.hasFood){
+			sf::Vector2f currentPlayerPosition = this->player.shape.getPosition();
+			std::cout << "current player x" << currentPlayerPosition.x;
+			std::cout << ", current player y" << currentPlayerPosition.y << std::endl;
+			sf::Vector2f minDistance = sf::Vector2f(2000.f, 2000.f);
+			sf::Vector2f distance;
+			sf::Vector2f targetFoodPosition;
+
+			size_t closestFoodIndex = 0; // Index of the closest food
+
+			for (size_t i = 0; i < this->food.size(); i++) {
+				targetFoodPosition = this->food[i].shape.getPosition();
+				distance = targetFoodPosition - currentPlayerPosition;
+
+				if (std::abs(distance.x) + std::abs(distance.y) < std::abs(minDistance.x) + std::abs(minDistance.y)) {
+					minDistance = distance;
+					closestFoodIndex = i;
+				}
+			}
+
+			// Calculate the normalized direction vector towards the closest food 
+			sf::Vector2f direction = minDistance / std::sqrt(minDistance.x * minDistance.x + minDistance.y * minDistance.y);
+
+			// Adjust the player's position based on the direction and a predefined speed
+			this->player.shape.move(player.movementSpeed * direction);
+
+	}
+	else if (this->player.hasFood) {
+		sf::Vector2f currentPlayerPosition = this->player.shape.getPosition();
+		sf::Vector2f distance;
+		sf::Vector2f nestPosition;
+		nestPosition = this->nest.shape.getPosition();
+		distance = nestPosition - currentPlayerPosition;
+
+		sf::Vector2f direction = distance / std::sqrt(distance.x * distance.x + distance.y * distance.y);
+
+		this->player.shape.move(player.movementSpeed * direction);
 	}
 }
 
@@ -124,7 +164,7 @@ void Game::update()
 	this->player.update(this->window);
 	this->playerFoodCollision();
 	this->nest.update();
-	
+	this->playerMovement();
 }
 
 void Game::render()
@@ -148,5 +188,8 @@ void Game::render()
 	}
 	this->window->draw(menu);
 	this->window->draw(nest.text);
+
+	
+
 	this->window->display();
 }

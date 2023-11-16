@@ -8,7 +8,7 @@ class Player
 private:
 	
 
-	float movementSpeed;
+	
 
 	void initVariables();
 	void initShape();
@@ -16,10 +16,11 @@ private:
 
 
 public:
+	float movementSpeed;
 	sf::RectangleShape shape;
 	bool hasFood = false;
 	//constructor
-	Player(float x = 0.f, float y=0.f);
+	Player(float x = 0.f, float y=500.f);
 	virtual ~Player();
 	int carriedFood;
 	void update(sf::RenderTarget* target);

@@ -2,13 +2,13 @@
 
 void Player::initVariables()
 {
-	this->movementSpeed = 5.f;
+	this->movementSpeed = 7.5f;
 }
 
 void Player::initShape()
 {
 	this->shape.setFillColor(sf::Color::Black);
-	this->shape.setSize(sf::Vector2f(25.f, 25.f));
+	this->shape.setSize(sf::Vector2f(15.f, 15.f));
 }
 
 Player::Player(float x,float y)

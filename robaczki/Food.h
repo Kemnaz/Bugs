@@ -10,6 +10,9 @@ private:
 		void initShape(const sf::RenderWindow& window);
 
 public:
+
+	bool isCarried = false;
+
 	sf::CircleShape shape;
 
 	//constructor

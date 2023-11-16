@@ -40,6 +40,7 @@ public:
 	//Functions
 	const bool running() const;
 	void pollEvents();
+	void playerMovement();
 	void foodNestCollison();
 	void spawnFood();
 	void playerFoodCollision();

@@ -3,7 +3,7 @@
 void Food::initShape(const sf::RenderWindow& window)
 {
 	this->shape.setFillColor(sf::Color::Green);
-	this->shape.setRadius(10);
+	this->shape.setRadius(5);
 	this->shape.setPosition(sf::Vector2f(
 		static_cast<float>(200+(rand() % (window.getSize().x -400) - this->shape.getGlobalBounds().width)),
 		static_cast<float>(100+(rand() % (window.getSize().y -200) - this->shape.getGlobalBounds().height))));
