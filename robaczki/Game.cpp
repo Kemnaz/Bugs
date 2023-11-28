@@ -23,23 +23,12 @@ void Game::initWindow()
 	this->window = new sf::RenderWindow(this->videoMode, "Robaczki", sf::Style::Titlebar | sf::Style::Close);
 	this->window->setFramerateLimit(60);
 }
-void Game::initMenu() {
-	this->menu.setFillColor(sf::Color::Black);
-	this->menu.setSize(sf::Vector2f(220.f, 1080.f));
-	this->menu.setPosition(sf::Vector2f(1700.f, 0.f));
-}
-void Game::initFont()
-{
-	
-}
 
 // Constructors / Destructors
 
 Game::Game() {
 	this->initVariables();
 	this->initWindow();
-	this->initFont();
-	this->initMenu();
 	this->nest.initFont();
 }
 Game::~Game() {
@@ -186,9 +175,8 @@ void Game::render()
 		i.render(this->window);
 
 	}
-	this->window->draw(menu);
+	this->toolbar.render(this->window);
 	this->window->draw(nest.text);
-
 	
 
 	this->window->display();

@@ -16,6 +16,11 @@ Nest::~Nest()
 {
 }
 
+int Nest::returnCounter()
+{
+	return counter;
+}
+
 void Nest::render(sf::RenderTarget* target)
 {
 	target->draw(this->shape);
@@ -25,7 +30,6 @@ void Nest::update()
 {
 
 	text.setString("food amount: " + std::to_string(counter));
-	std::to_string(counter);
 }
 void Nest::initFont() {
 

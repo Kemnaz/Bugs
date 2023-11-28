@@ -19,6 +19,7 @@ public:
 	virtual ~Nest();
 
 	//functions
+	int returnCounter();
 	void render(sf::RenderTarget* target);
 	void update();
 	void initFont();

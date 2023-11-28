@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Food.h"
 #include "Nest.h"
+#include "ToolBar.h"
 // Class for rendering the game
 
 class Game
@@ -18,8 +19,7 @@ private:
 	bool endGame;
 	Player player;
 	Nest nest;
-	sf::Font font;
-	sf::Text text;
+	ToolBar toolbar;
 
 
 	float spawnTimerMax;
@@ -28,8 +28,6 @@ private:
 	std::vector<Food> food;
 	void initVariables();
 	void initWindow();
-	void initMenu();
-	void initFont();
 public:
 	//Constructors /Destructors
 	Game();
