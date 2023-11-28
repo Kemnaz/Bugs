@@ -16,12 +16,13 @@ private:
 	sf::Event sfmlEvent;
 	sf::RectangleShape menu;
 	bool endGame;
-	Player player;
+	//Player bug;
+	std::vector<Player> bug;
 	Nest nest;
 	sf::Font font;
 	sf::Text text;
 
-
+	int maxBugs;
 	float spawnTimerMax;
 	float spawnTimer;
 	int maxFood;
@@ -42,6 +43,9 @@ public:
 	void pollEvents();
 	void playerMovement();
 	void foodNestCollison();
+	void bugNestCollison();
+	void spawnBugs();
+	void despawnBugs();
 	void spawnFood();
 	void playerFoodCollision();
 	void update();

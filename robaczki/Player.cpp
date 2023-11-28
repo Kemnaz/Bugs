@@ -1,21 +1,31 @@
 #include "Player.h"
+#include <iostream>
 
 void Player::initVariables()
 {
-	this->movementSpeed = 7.5f;
+	this->movementSpeed = 3+rand()%2;
+	this->lifespan = 60 * 20;
 }
 
 void Player::initShape()
 {
-	this->shape.setFillColor(sf::Color::Black);
-	this->shape.setSize(sf::Vector2f(15.f, 15.f));
+	if (!texture.loadFromFile("C:\\Users\\User\\Documents\\Unreal Projects\\Bugs\\robaczki\\textures\\ant.png")) {
+		std::cout << "Bug texture load failed";
+		system("pause");
+	}
+	sprite.setTexture(texture);
+	/*this->shape.setFillColor(sf::Color::Black);
+	this->shape.setSize(sf::Vector2f(15.f, 15.f));*/
+	
+	
 }
 
 Player::Player(float x,float y)
 {
-	this->shape.setPosition(x, y);
-	this->initVariables();
 	this->initShape();
+	this->sprite.setPosition(x, y);
+	this->initVariables();
+	
 }
 
 Player::~Player()
@@ -38,25 +48,25 @@ void Player::updateInput()
 {
 	// Keyboard input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		this->shape.move(-this->movementSpeed, 0.f);
+		this->sprite.move(-this->movementSpeed, 0.f);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		this->shape.move(this->movementSpeed, 0.f);
+		this->sprite.move(this->movementSpeed, 0.f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		this->shape.move(0.f, -this->movementSpeed);
+		this->sprite.move(0.f, -this->movementSpeed);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		this->shape.move(0.f, this->movementSpeed);
+		this->sprite.move(0.f, this->movementSpeed);
 	}
 }
 
 void Player::render(sf::RenderTarget* target)
 {
-	target->draw(this->shape);
+	target->draw(this->sprite);
 }
 
 sf::Vector2f Player::getplayerposition()
 {
-	return this->shape.getPosition();
+	return this->sprite.getPosition();
 }
