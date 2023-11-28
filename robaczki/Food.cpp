@@ -1,25 +1,19 @@
 #include "Food.h"
 
-void Food::initShape(const sf::RenderWindow& window, float x, float  y)
+void Food::initShape(const sf::RenderWindow& window)
 {
 	this->shape.setFillColor(sf::Color::Green);
-	this->shape.setRadius(3);
-	if (x == 0 && y == 0) {
-		this->shape.setPosition(sf::Vector2f(
-				static_cast<float>(200+(rand() % (window.getSize().x -1500) - this->shape.getGlobalBounds().width)),
-				static_cast<float>(100+(rand() % (window.getSize().y -500) - this->shape.getGlobalBounds().height))));
-	}
-	else {
-		this->shape.setPosition(x, y);
-	}
-	
+	this->shape.setRadius(5);
+	this->shape.setPosition(sf::Vector2f(
+		static_cast<float>(200+(rand() % (window.getSize().x -400) - this->shape.getGlobalBounds().width)),
+		static_cast<float>(100+(rand() % (window.getSize().y -200) - this->shape.getGlobalBounds().height))));
 }
 
 
-Food::Food(const sf::RenderWindow& window,float height,float width)
+Food::Food(const sf::RenderWindow& window)
 {
 	
-	this->initShape(window,height,width);
+	this->initShape(window);
 }
 
 Food::~Food()

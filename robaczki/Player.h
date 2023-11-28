@@ -16,16 +16,13 @@ private:
 
 
 public:
-	float lifespan;
 	float movementSpeed;
 	sf::RectangleShape shape;
-	sf::Texture texture;
-	sf::Sprite sprite;
 	bool hasFood = false;
 	//constructor
-	Player(float x = 0.f, float y=800.f);
+	Player(float x = 0.f, float y=500.f);
 	virtual ~Player();
-	
+	int carriedFood;
 	void update(sf::RenderTarget* target);
 	void updateInput();
 	void render(sf::RenderTarget* target);

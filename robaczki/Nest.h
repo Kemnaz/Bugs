@@ -15,7 +15,7 @@ public:
 	sf::Text text;
 
 	//constructor
-	Nest(float x = 0.f, float y = 700.f);
+	Nest(float x = 0.f, float y = 300.f);
 	virtual ~Nest();
 
 	//functions
