@@ -15,13 +15,11 @@ public:
 	sf::Text text;
 
 	//constructor
-	Nest(float x = 0.f, float y = 300.f);
+	Nest(float x = 0.f, float y = 700.f);
 	virtual ~Nest();
 
 	//functions
-	int returnCounter();
 	void render(sf::RenderTarget* target);
 	void update();
 	void initFont();
 };
-

@@ -9,21 +9,21 @@
 #include <random>
 
 
-int main() { 
-	
+int main() {
+
 	srand(time(NULL));
 	// Init game engine 
 	Game game;
 	//game loop
 	while (game.running()) {
 		//Event polling
-		
+
 
 		//Update
 		game.update();
 		//Render
 		game.render();
-		
+
 
 
 	}

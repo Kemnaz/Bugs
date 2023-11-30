@@ -7,16 +7,17 @@
 class Food
 {
 private:
-		void initShape(const sf::RenderWindow& window);
+	//void initShape(const sf::RenderWindow& window);
+	void initShape(const sf::RenderWindow& window, float x = 0, float y = 0);
 
 public:
 
-	bool isCarried = false;
 
 	sf::CircleShape shape;
 
 	//constructor
-	Food(const sf::RenderWindow& window);
+	//Food(const sf::RenderWindow& window);
+	Food(const sf::RenderWindow& window, float height = 0, float width = 0);
 	virtual ~Food();
 
 	//functions
@@ -25,4 +26,3 @@ public:
 
 
 };
-
