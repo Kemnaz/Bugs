@@ -1,22 +1,26 @@
 #include "Game.h"
 #include < stdlib.h >
 
-Button FoodAmountIncrement("+", { 20,20 }, 10);
-Button FoodAmountReduction("-", { 20,20 }, 10);
+Button FoodAmountInc("+", { 20,20 }, 10);
+Button FoodAmountRed("-", { 20,20 }, 10);
 Button FoodSpawnRateInc("+", { 20,20 }, 10);
 Button FoodSpawnRateRed("-", { 20,20 }, 10);
 Button MaxBugsInc("+", { 20,20 }, 10);
 Button MaxBugsRed("-", { 20,20 }, 10);
+Button NewBugFoodThresholdInc("+", { 20,20 }, 10);
+Button NewBugFoodThresholdRed("-", { 20,20 }, 10);
+Button SpawnBug("SpawnBug", { 80,40 }, 10);
 //private functions
 void Game::initVariables()
 {
-	
 	this->window = nullptr;
 	this->spawnTimerMax = 30.f;
 	this->spawnTimer = this->spawnTimerMax;
 	this->maxFood = 5;
 	this->maxBugs = 1;
+	this->foodrequired = 2;
 	this->bug.push_back(Player(nest.shape.getPosition().x+20, nest.shape.getPosition().y+30));
+	this->bug[0].sprite.setTexture(resources.bugtexture);
 }
 
 void Game::initWindow()
@@ -31,30 +35,31 @@ void Game::initMenu() {
 	float x1 = 1750;
 	float x2 = 1780;
 	float xT = 1710;
-	FoodAmountIncrement.setPosition({ x1,220});
-	FoodAmountIncrement.setFont(font);
-	FoodAmountReduction.setPosition({ x2,220 });
-	FoodAmountReduction.setFont(font);
+	FoodAmountInc.setPosition({ x1,220});
+	FoodAmountRed.setPosition({ x2,220 });
 	FoodSpawnRateInc.setPosition({ x1,300 });
-	FoodSpawnRateInc.setFont(font);
 	FoodSpawnRateRed.setPosition({ x2,300 });
-	FoodSpawnRateRed.setFont(font);
 	MaxBugsInc.setPosition({ x1,380 });
-	MaxBugsInc.setFont(font);
 	MaxBugsRed.setPosition({ x2,380 });
-	MaxBugsRed.setFont(font);
-	buttons.push_back(FoodAmountIncrement);
-	buttons.push_back(FoodAmountReduction);
+	NewBugFoodThresholdInc.setPosition({ x1,460 });
+	NewBugFoodThresholdRed.setPosition({ x2,460 });
+	buttons.push_back(FoodAmountInc);
+	buttons.push_back(FoodAmountRed);
 	buttons.push_back(FoodSpawnRateInc);
 	buttons.push_back(FoodSpawnRateRed);
 	buttons.push_back(MaxBugsInc);
 	buttons.push_back(MaxBugsRed);
+	buttons.push_back(NewBugFoodThresholdInc);
+	buttons.push_back(NewBugFoodThresholdRed);
+	
 	respawnfoodtxt.setPosition(xT, 265);
 	maxfoodtxt.setPosition(xT, 200);
 	maxbugstxt.setPosition(xT, 345);
+	bugfoodthreshold.setPosition(xT, 425);
 	texts.push_back(maxfoodtxt);
 	texts.push_back(respawnfoodtxt);
 	texts.push_back(maxbugstxt);
+	texts.push_back(bugfoodthreshold);
 	this->menu.setFillColor(sf::Color::Black);
 	this->menu.setSize(sf::Vector2f(220.f, 1080.f));
 	this->menu.setPosition(sf::Vector2f(1700.f, 0.f));
@@ -66,11 +71,15 @@ void Game::initFont()
 		texts[i].setCharacterSize(12);
 		texts[i].setFont(font);
 	}
+	for (size_t i = 0; i < buttons.size(); i++) {
+		buttons[i].setFont(font);
+	}
 }
 
 // Constructors / Destructors
 
 Game::Game() {
+	this->resources.initTextures();
 	this->initVariables();
 	this->initWindow();
 	this->initMenu();
@@ -103,6 +112,14 @@ void Game::pollEvents()
 				this->window->close();
 			break;
 		case sf::Event::MouseMoved:
+			if (nest.isMouseOver(window)&&sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+				nest.isHeld = true;
+				//nest.shape.setPosition(sf::Mouse::getPosition().x - nest.shape.getLocalBounds().width / 2, sf::Mouse::getPosition().y - nest.shape.getLocalBounds().height / 2);
+			}
+			else if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+				nest.isHeld = false;
+			}
+
 			for (size_t j = 0; j < this->buttons.size(); j++) {
 				if (buttons[j].isMouseOver(window)) {
 					buttons[j].setBackColor(sf::Color::Green);
@@ -113,10 +130,10 @@ void Game::pollEvents()
 			}
 			break;
 		case sf::Event::MouseButtonPressed:
-			if (FoodAmountIncrement.isMouseOver(window) ) {
+			if (FoodAmountInc.isMouseOver(window) ) {
 				maxFood++;
 			}
-			else if (FoodAmountReduction.isMouseOver(window) && maxFood > 0) {
+			else if (FoodAmountRed.isMouseOver(window) && maxFood > 0) {
 				maxFood--;
 			}
 			else if (FoodSpawnRateInc.isMouseOver(window) && spawnTimerMax > 5) {
@@ -128,8 +145,14 @@ void Game::pollEvents()
 			else if (MaxBugsInc.isMouseOver(window)) {
 				maxBugs++;
 			}
-			else if (MaxBugsRed.isMouseOver(window)) {
+			else if (MaxBugsRed.isMouseOver(window) && maxBugs>1) {
 				maxBugs--;
+			}
+			else if (NewBugFoodThresholdInc.isMouseOver(window)) {
+				foodrequired++;
+			}
+			else if (NewBugFoodThresholdRed.isMouseOver(window)&& foodrequired>1) {
+				foodrequired--;
 			}
 			break;
 			
@@ -217,10 +240,10 @@ void Game::bugNestCollison() {
 
 void Game::spawnBugs() {
 	if (this->bug.size() < this->maxBugs) {
-		if (this->nest.counter > 2) {
+		if (this->nest.counter >= foodrequired) {
 			std::cout << "max bugs: " << maxBugs << '\n' << "bug amount: " << this->bug.size() << std::endl;
 			this->bug.push_back(Player(nest.shape.getPosition().x + 20, nest.shape.getPosition().y + 30));
-			this->nest.counter -= 2;
+			this->nest.counter -= foodrequired;
 		}
 
 	}
@@ -287,6 +310,7 @@ void Game::textupdate()
 
 	texts[1].setString("current respawn rate:\n" + str + " sec.");
 	texts[2].setString("current max amount \nof bugs: " + std::to_string(maxBugs));
+	texts[3].setString("food required to \nspawn a new bug: " + std::to_string(foodrequired));
 }
 
 void Game::update()
@@ -322,8 +346,7 @@ void Game::render()
 	this->window->clear(sf::Color(200, 117, 51, 0));
 	//Draw game objects
 	for (auto i : this->bug) {
-		//i.texture.loadFromFile("C:\\Users\\User\\Documents\\Unreal Projects\\Bugs\\robaczki\\textures\\ant.png");
-		i.sprite.setTexture(i.texture);
+		i.sprite.setTexture(resources.bugtexture);
 		i.render(this->window);
 	}
 

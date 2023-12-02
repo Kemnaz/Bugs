@@ -16,6 +16,12 @@ Nest::~Nest()
 {
 }
 
+void Nest::followMouse()
+{
+	this->shape.setPosition(sf::Mouse::getPosition().x - this->shape.getLocalBounds().width / 1.5, sf::Mouse::getPosition().y - this->shape.getLocalBounds().height / 1.5);
+
+}
+
 void Nest::render(sf::RenderTarget* target)
 {
 	target->draw(this->shape);
@@ -25,6 +31,9 @@ void Nest::update()
 {
 
 	text.setString("food amount: " + std::to_string(counter));
+	if (this->isHeld) {
+		followMouse();
+	}
 }
 void Nest::initFont() {
 

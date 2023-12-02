@@ -8,6 +8,7 @@ private:
 	void initShape();
 
 public:
+	bool isHeld;
 	int counter = 0;
 	sf::RectangleShape shape;
 
@@ -19,6 +20,7 @@ public:
 	virtual ~Nest();
 
 	//functions
+	void followMouse();
 	void render(sf::RenderTarget* target);
 	void update();
 	void initFont();

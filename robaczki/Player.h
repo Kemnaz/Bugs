@@ -19,7 +19,8 @@ public:
 	float lifespan;
 	float movementSpeed;
 	sf::RectangleShape shape;
-	sf::Texture texture;
+	//sf::Texture texture;
+	//sf::Texture bugtexture;
 	sf::Sprite sprite;
 	bool hasFood = false;
 	//constructor

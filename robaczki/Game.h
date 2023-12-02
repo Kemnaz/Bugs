@@ -7,6 +7,7 @@
 #include "Food.h"
 #include "Nest.h"
 #include "Button.h"
+#include "Resources.h"
 #include <sstream>
 #include <iostream>
 #define FRAMERATE 60
@@ -30,8 +31,11 @@ private:
 	sf::Text maxfoodtxt;
 	sf::Text respawnfoodtxt;
 	sf::Text maxbugstxt;
+	sf::Text bugfoodthreshold;
+	Resources resources;
 	//sf::Text text;
 	bool endGame;
+	int foodrequired;
 	int maxBugs;
 	float spawnTimerMax;
 	float spawnTimer;
