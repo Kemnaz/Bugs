@@ -6,6 +6,11 @@
 #include "Player.h"
 #include "Food.h"
 #include "Nest.h"
+#include "Button.h"
+#include <sstream>
+#include <iostream>
+#define FRAMERATE 60
+
 // Class for rendering the game
 
 class Game
@@ -15,12 +20,18 @@ private:
 	sf::VideoMode videoMode;
 	sf::Event sfmlEvent;
 	sf::RectangleShape menu;
-	bool endGame;
+	
 	//Player bug;
 	std::vector<Player> bug;
+	std::vector<Button> buttons;
+	std::vector<sf::Text> texts;
 	Nest nest;
 	sf::Font font;
-	sf::Text text;
+	sf::Text maxfoodtxt;
+	sf::Text respawnfoodtxt;
+	sf::Text maxbugstxt;
+	//sf::Text text;
+	bool endGame;
 	int maxBugs;
 	float spawnTimerMax;
 	float spawnTimer;
@@ -49,4 +60,5 @@ public:
 	void playerFoodCollision();
 	void update();
 	void render();
+	void textupdate();
 };

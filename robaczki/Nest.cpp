@@ -25,7 +25,6 @@ void Nest::update()
 {
 
 	text.setString("food amount: " + std::to_string(counter));
-	std::to_string(counter);
 }
 void Nest::initFont() {
 
@@ -34,4 +33,18 @@ void Nest::initFont() {
 	text.setCharacterSize(20);
 	text.setPosition(1710, 25);
 	text.setString("food amount: " + std::to_string(counter));
+}
+bool Nest::isMouseOver(sf::RenderWindow* window) {
+	float mouseX = sf::Mouse::getPosition(*window).x;
+	float mouseY = sf::Mouse::getPosition(*window).y;
+
+	float nestPosx = shape.getPosition().x;
+	float nestPosY = shape.getPosition().y;
+
+	float nestWidth = shape.getPosition().x + shape.getLocalBounds().width;
+	float nestHeight = shape.getPosition().y + shape.getLocalBounds().height;
+	if (mouseX > nestPosx && mouseX < nestWidth && mouseY > nestPosY && mouseY < nestHeight) {
+		return true;
+	}
+	return false;
 }

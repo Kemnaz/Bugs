@@ -6,8 +6,8 @@ void Food::initShape(const sf::RenderWindow& window, float x, float  y)
 	this->shape.setRadius(3);
 	if (x == 0 && y == 0) {
 		this->shape.setPosition(sf::Vector2f(
-			static_cast<float>(200 + (rand() % (window.getSize().x - 1500) - this->shape.getGlobalBounds().width)),
-			static_cast<float>(100 + (rand() % (window.getSize().y - 500) - this->shape.getGlobalBounds().height))));
+			static_cast<float>(200 + (rand() % (window.getSize().x - 500) - this->shape.getGlobalBounds().width)),
+			static_cast<float>(100 + (rand() % (window.getSize().y - 200) - this->shape.getGlobalBounds().height))));
 	}
 	else {
 		this->shape.setPosition(x, y);

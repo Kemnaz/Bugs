@@ -1,10 +1,11 @@
 #include "Player.h"
 #include <iostream>
 
+
 void Player::initVariables()
 {
-	this->movementSpeed = 3 + rand() % 2;
-	this->lifespan = 60 * 20;
+	this->movementSpeed = 3 + float(rand() % 200)/200;
+	lifespan = 60 * 20;
 }
 
 void Player::initShape()
@@ -33,13 +34,28 @@ Player::~Player()
 
 }
 
-void Player::update(sf::RenderTarget* target)
+void Player::update(sf::RenderTarget* target,int nestx)
 {
 	//Window bounds collision
 
 	this->updateInput();
-
-
+	if (hasFood) {
+		if (sprite.getPosition().x < nestx) {
+			sprite.setScale(-1.0f, 1.0f);
+		}
+		else {
+			sprite.setScale(1.0f, 1.0f);
+		}
+	}
+	else {
+		if (sprite.getPosition().x < nestx) {
+			sprite.setScale(1.0f, 1.0f);
+		}
+		else {
+			sprite.setScale(-1.0f, 1.0f);
+		}
+	}
+	
 
 
 }

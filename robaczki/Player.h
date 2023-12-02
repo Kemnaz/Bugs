@@ -26,8 +26,9 @@ public:
 	Player(float x = 0.f, float y = 800.f);
 	virtual ~Player();
 
-	void update(sf::RenderTarget* target);
+	void update(sf::RenderTarget* target,int nestx);
 	void updateInput();
 	void render(sf::RenderTarget* target);
 	sf::Vector2f getplayerposition();
+
 };
