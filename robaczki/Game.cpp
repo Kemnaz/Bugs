@@ -19,7 +19,7 @@ void Game::initVariables()
 	this->maxFood = 5;
 	this->maxBugs = 1;
 	this->foodrequired = 2;
-	this->bug.push_back(Player(nest.shape.getPosition().x+20, nest.shape.getPosition().y+30));
+	this->bug.push_back(Player(nest.shape.getPosition().x+20, nest.shape.getPosition().y+30,resources.bugtexture));
 	this->bug[0].sprite.setTexture(resources.bugtexture);
 }
 
@@ -242,7 +242,7 @@ void Game::spawnBugs() {
 	if (this->bug.size() < this->maxBugs) {
 		if (this->nest.counter >= foodrequired) {
 			std::cout << "max bugs: " << maxBugs << '\n' << "bug amount: " << this->bug.size() << std::endl;
-			this->bug.push_back(Player(nest.shape.getPosition().x + 20, nest.shape.getPosition().y + 30));
+			this->bug.push_back(Player(nest.shape.getPosition().x + 20, nest.shape.getPosition().y + 30,resources.bugtexture));
 			this->nest.counter -= foodrequired;
 		}
 
@@ -350,11 +350,12 @@ void Game::render()
 		i.render(this->window);
 	}
 
-	this->nest.render(this->window);
+	
 	for (auto i : this->food) {
 		i.render(this->window);
 
 	}
+	this->nest.render(this->window);
 	this->window->draw(menu);
 	for (auto i : this->buttons) {
 		i.render(this->window);

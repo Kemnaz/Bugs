@@ -5,28 +5,22 @@
 
 void Player::initVariables()
 {
-	/*if (!bugtexture.loadFromFile("C:\\Users\\User\\Documents\\Unreal Projects\\Bugs\\robaczki\\textures\\ant.png")) {
-		std::cout << "Bug texture load failed";
-		system("pause");
-	}*/
 	this->movementSpeed = 3 + float(rand() % 200)/200;
 	lifespan = 60 * 20;
 }
 
-void Player::initShape()
+void Player::initShape(sf::Texture texture)
 {
 	
-	//sprite.setTexture(resources.bugtexture);
-	/*this->shape.setFillColor(sf::Color::Black);
-	this->shape.setSize(sf::Vector2f(15.f, 15.f));*/
+	sprite.setTexture(texture);
 
 
 }
 
-Player::Player(float x, float y)
+Player::Player(float x, float y, sf::Texture texture)
 {
 	this->initVariables();
-	this->initShape();
+	this->initShape(texture);
 	this->sprite.setPosition(x, y);
 	
 

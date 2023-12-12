@@ -11,7 +11,7 @@ private:
 
 
 	void initVariables();
-	void initShape();
+	void initShape(sf::Texture);
 
 
 
@@ -24,7 +24,7 @@ public:
 	sf::Sprite sprite;
 	bool hasFood = false;
 	//constructor
-	Player(float x = 0.f, float y = 800.f);
+	Player(float x, float y, sf::Texture);
 	virtual ~Player();
 
 	void update(sf::RenderTarget* target,int nestx);
