@@ -37,7 +37,7 @@ void Nest::update()
 }
 void Nest::initFont() {
 
-	font.loadFromFile("C:\\Users\\User\\Documents\\Unreal Projects\\Bugs\\robaczki\\mcfont.ttf");
+	font.loadFromFile("fonts//mcfont.ttf");
 	text.setFont(font);
 	text.setCharacterSize(20);
 	text.setPosition(1710, 25);

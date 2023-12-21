@@ -66,7 +66,7 @@ void Game::initMenu() {
 }
 void Game::initFont()
 {
-	font.loadFromFile("C:\\Users\\User\\Documents\\Unreal Projects\\Bugs\\robaczki\\mcfont.ttf");
+	font.loadFromFile("fonts\\mcfont.ttf");
 	for (size_t i = 0; i < texts.size(); i++) {
 		texts[i].setCharacterSize(12);
 		texts[i].setFont(font);
