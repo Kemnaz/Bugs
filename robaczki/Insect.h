@@ -1,35 +1,34 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
 #include <SFML/Network.hpp>
 
-class Player
+class Insect
 {
 private:
 
 
 
 
-	void initVariables();
+	void initVariables(float speed, int lifespan);
 	void initShape(sf::Texture);
 
 
 
 public:
-	float lifespan;
+	int lifespan;
 	float movementSpeed;
 	sf::RectangleShape shape;
-	//sf::Texture texture;
-	//sf::Texture bugtexture;
+	
 	sf::Sprite sprite;
 	bool hasFood = false;
 	//constructor
-	Player(float x, float y, sf::Texture);
-	virtual ~Player();
+	Insect(float x, float y, sf::Texture, float speed, int lifespan);
+	virtual ~Insect();
 
 	void update(sf::RenderTarget* target,int nestx);
 	void updateInput();
 	void render(sf::RenderTarget* target);
+	float returnLifespan();
 	sf::Vector2f getplayerposition();
 
 };

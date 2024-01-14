@@ -10,7 +10,8 @@ private:
 public:
 	bool isHeld;
 	int counter = 0;
-	sf::RectangleShape shape;
+	//sf::RectangleShape shape;
+	sf::Sprite sprite;
 
 	sf::Font font;
 	sf::Text text;
@@ -19,10 +20,10 @@ public:
 	Nest(float x = 900.f, float y = 450.f);
 	virtual ~Nest();
 
+
 	//functions
-	void followMouse();
+	void followMouse(sf::RenderWindow* window);
 	void render(sf::RenderTarget* target);
-	void update();
-	void initFont();
+	void update(sf::RenderWindow* window);
 	bool isMouseOver(sf::RenderWindow* window);
 };

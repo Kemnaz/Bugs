@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Player.h"
+#include "Insect.h"
 #include "Food.h"
 #include "Nest.h"
 #include "Button.h"
@@ -23,17 +23,23 @@ private:
 	sf::RectangleShape menu;
 	
 	//Player bug;
-	std::vector<Player> bug;
+	std::vector<Insect> bug;
 	std::vector<Button> buttons;
 	std::vector<sf::Text> texts;
 	Nest nest;
 	sf::Font font;
+	sf::Text foodamount;
 	sf::Text maxfoodtxt;
 	sf::Text respawnfoodtxt;
 	sf::Text maxbugstxt;
 	sf::Text bugfoodthreshold;
+	sf::Text bugLifeSpan;
+	sf::Text bugSpeed;
+	sf::Text currentbugsamounttxt;
 	Resources resources;
 	//sf::Text text;
+	int lifelength;
+	float mvmspeed;
 	bool endGame;
 	int foodrequired;
 	int maxBugs;
@@ -41,13 +47,14 @@ private:
 	float spawnTimer;
 	int maxFood;
 	std::vector<Food> food;
-	void initVariables();
+	void initVariables(int maxbee, int maxfood, int lifelen);
 	void initWindow();
 	void initMenu();
 	void initFont();
+
 public:
 	//Constructors /Destructors
-	Game();
+	Game(int maxbee, int maxfood, int lifelen);
 	virtual ~Game();
 
 
@@ -65,4 +72,5 @@ public:
 	void update();
 	void render();
 	void textupdate();
+	//void settings(int maxbee, int maxfood, int spawnspeed);
 };

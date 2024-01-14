@@ -2,13 +2,13 @@
 
 void Nest::initShape()
 {
-	this->shape.setFillColor(sf::Color::Black);
-	this->shape.setSize(sf::Vector2f(50.f, 100.f));
+	/*this->shape.setFillColor(sf::Color::Black);
+	this->shape.setSize(sf::Vector2f(50.f, 100.f));*/
 }
 
 Nest::Nest(float x, float y)
 {
-	this->shape.setPosition(x, y);
+	this->sprite.setPosition(x, y);
 	this->initShape();
 }
 
@@ -16,42 +16,38 @@ Nest::~Nest()
 {
 }
 
-void Nest::followMouse()
+void Nest::followMouse(sf::RenderWindow* window)
 {
-	this->shape.setPosition(sf::Mouse::getPosition().x - this->shape.getLocalBounds().width / 1.5, sf::Mouse::getPosition().y - this->shape.getLocalBounds().height / 1.5);
+	if (!(sf::Mouse::getPosition(*window).x > window->getSize().x - 260 || sf::Mouse::getPosition(*window).x < 120)) {
+		this->sprite.setPosition(sf::Mouse::getPosition(*window).x - this->sprite.getLocalBounds().width / 1.5, sf::Mouse::getPosition(*window).y - this->sprite.getLocalBounds().height / 1.5);
 
+	}
+	
 }
 
 void Nest::render(sf::RenderTarget* target)
 {
-	target->draw(this->shape);
+	target->draw(this->sprite);
 }
 
-void Nest::update()
+void Nest::update(sf::RenderWindow* window)
 {
 
-	text.setString("food amount: " + std::to_string(counter));
+	/*text.setString("food amount: " + std::to_string(counter));*/
 	if (this->isHeld) {
-		followMouse();
+		followMouse(window);
 	}
 }
-void Nest::initFont() {
 
-	font.loadFromFile("C:\\Users\\User\\Documents\\Unreal Projects\\Bugs\\robaczki\\mcfont.ttf");
-	text.setFont(font);
-	text.setCharacterSize(20);
-	text.setPosition(1710, 25);
-	text.setString("food amount: " + std::to_string(counter));
-}
 bool Nest::isMouseOver(sf::RenderWindow* window) {
 	float mouseX = sf::Mouse::getPosition(*window).x;
 	float mouseY = sf::Mouse::getPosition(*window).y;
 
-	float nestPosx = shape.getPosition().x;
-	float nestPosY = shape.getPosition().y;
+	float nestPosx = sprite.getPosition().x;
+	float nestPosY = sprite.getPosition().y;
 
-	float nestWidth = shape.getPosition().x + shape.getLocalBounds().width;
-	float nestHeight = shape.getPosition().y + shape.getLocalBounds().height;
+	float nestWidth = sprite.getPosition().x + sprite.getLocalBounds().width;
+	float nestHeight = sprite.getPosition().y + sprite.getLocalBounds().height;
 	if (mouseX > nestPosx && mouseX < nestWidth && mouseY > nestPosY && mouseY < nestHeight) {
 		return true;
 	}

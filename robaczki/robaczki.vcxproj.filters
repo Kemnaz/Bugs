@@ -21,7 +21,7 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Insect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Food.cpp">
@@ -41,7 +41,7 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Insect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Food.h">

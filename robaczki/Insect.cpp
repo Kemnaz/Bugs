@@ -1,15 +1,15 @@
-#include "Player.h"
+#include "Insect.h"
 #include <iostream>
 
 
 
-void Player::initVariables()
+void Insect::initVariables(float speed,int lifespan)
 {
-	this->movementSpeed = 3 + float(rand() % 200)/200;
-	lifespan = 60 * 20;
+	this->movementSpeed = speed + float(rand() % 200)/200;
+	this->lifespan = 60 * lifespan;
 }
 
-void Player::initShape(sf::Texture texture)
+void Insect::initShape(sf::Texture texture)
 {
 	
 	sprite.setTexture(texture);
@@ -17,26 +17,30 @@ void Player::initShape(sf::Texture texture)
 
 }
 
-Player::Player(float x, float y, sf::Texture texture)
+float Insect::returnLifespan() {
+	return this->lifespan;
+}
+
+Insect::Insect(float x, float y, sf::Texture texture, float speed, int lifespan)
 {
-	this->initVariables();
+	this->initVariables(speed, lifespan);
 	this->initShape(texture);
 	this->sprite.setPosition(x, y);
 	
 
 }
 
-Player::~Player()
+Insect::~Insect()
 {
 
 }
 
-void Player::update(sf::RenderTarget* target,int nestx)
+void Insect::update(sf::RenderTarget* target,int nestx)
 {
 	//Window bounds collision
 
 	this->updateInput();
-	if (hasFood) {
+	/*if (hasFood) {
 		if (sprite.getPosition().x < nestx) {
 			sprite.setScale(-1.0f, 1.0f);
 		}
@@ -51,13 +55,13 @@ void Player::update(sf::RenderTarget* target,int nestx)
 		else {
 			sprite.setScale(-1.0f, 1.0f);
 		}
-	}
+	}*/
 	
 
 
 }
 
-void Player::updateInput()
+void Insect::updateInput()
 {
 	// Keyboard input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -74,12 +78,12 @@ void Player::updateInput()
 	}
 }
 
-void Player::render(sf::RenderTarget* target)
+void Insect::render(sf::RenderTarget* target)
 {
 	target->draw(this->sprite);
 }
 
-sf::Vector2f Player::getplayerposition()
+sf::Vector2f Insect::getplayerposition()
 {
 	return this->sprite.getPosition();
 }
