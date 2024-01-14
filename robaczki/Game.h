@@ -38,6 +38,8 @@ private:
 	sf::Text currentbugsamounttxt;
 	Resources resources;
 	//sf::Text text;
+	int vwidth;
+	int vheight;
 	int lifelength;
 	float mvmspeed;
 	bool endGame;
@@ -48,13 +50,13 @@ private:
 	int maxFood;
 	std::vector<Food> food;
 	void initVariables(int maxbee, int maxfood, int lifelen);
-	void initWindow();
+	void initWindow(int width, int height);
 	void initMenu();
 	void initFont();
 
 public:
 	//Constructors /Destructors
-	Game(int maxbee, int maxfood, int lifelen);
+	Game(int maxbee, int maxfood, int lifelen,int width, int height);
 	virtual ~Game();
 
 

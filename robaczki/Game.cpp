@@ -13,7 +13,7 @@ Button LifeSpanInc("+", { 20,20 }, 10);
 Button LifeSpanRed("-", { 20,20 }, 10);
 Button SpeedInc("+", { 20,20 }, 10);
 Button SpeedRed("-", { 20,20 }, 10);
-Button SpawnBug("SpawnBug", { 80,40 }, 10);
+Button SpawnBug("+", { 80,40 }, 10);
 Button DoubleFoodAmountInc("x", { 20,20 }, 10);
 Button DoubleFoodAmountRed("x", { 20,20 }, 10);
 
@@ -29,15 +29,16 @@ void Game::initVariables(int maxbee, int maxfood, int lifelen)
 	this->maxBugs = maxbee;
 	this->foodrequired = 2;
 	this->nest.sprite.setTexture(resources.beehive);
+	this->nest.sprite.setPosition(vwidth / 2 - 100, vheight / 2 - 40);
 	this->bug.push_back(Insect(nest.sprite.getPosition().x+20, nest.sprite.getPosition().y+30,resources.bugtexture,mvmspeed,lifelength));
 	this->bug[0].sprite.setTexture(resources.bugtexture);
 }
 
-void Game::initWindow()
+void Game::initWindow(int width, int height)
 {
 
-	this->videoMode.height = 700;
-	this->videoMode.width = 1920;
+	this->videoMode.height = height;
+	this->videoMode.width = width;
 	this->window = new sf::RenderWindow(this->videoMode, "Robaczki", sf::Style::Titlebar | sf::Style::Close);
 	this->window->setFramerateLimit(FRAMERATE);
 }
@@ -48,9 +49,10 @@ void Game::initMenu() {
 	float x2 = x1+30;
 	//float xT = 1725;
 	float xT = window->getSize().x-195;
-	float prev_butt_y = 140;
+	float prev_butt_y = 200;
 	float prev_description_text = prev_butt_y - 40;
 
+	SpawnBug.setPosition({ x2-45,prev_butt_y - 110});
 
 
 	DoubleFoodAmountInc.setPosition({ x1-30,prev_butt_y });
@@ -74,7 +76,6 @@ void Game::initMenu() {
 	SpeedInc.setPosition({ x1,prev_butt_y });
 	SpeedRed.setPosition({ x2,prev_butt_y });
 	prev_butt_y += 80;
-	SpawnBug.setPosition({ x2,prev_butt_y });
 	buttons.push_back(FoodAmountInc);
 	buttons.push_back(FoodAmountRed);
 	buttons.push_back(FoodSpawnRateInc);
@@ -93,9 +94,9 @@ void Game::initMenu() {
 	buttons.push_back(DoubleFoodAmountRed);
 
 
-	currentbugsamounttxt.setPosition({ xT,prev_description_text - 40 });
+	currentbugsamounttxt.setPosition({ xT,prev_description_text - 100 });
 	currentbugsamounttxt.setString("Bugs: " + std::to_string(size(bug)));
-	foodamount.setPosition(nest.sprite.getPosition().x - 5, nest.sprite.getPosition().y);
+	foodamount.setPosition(nest.sprite.getPosition().x, nest.sprite.getPosition().y);
 	foodamount.setString("food amount: " + std::to_string(nest.counter));
 	foodamount.setCharacterSize(12);
 
@@ -140,10 +141,12 @@ void Game::initFont()
 
 // Constructors / Destructors
 
-Game::Game(int maxbee = 5, int maxfood = 150, int lifelen = 20) {
+Game::Game(int maxbee = 5, int maxfood = 150, int lifelen = 20, int width=1920, int height=1080) {
+	vwidth = width;
+	vheight = height;
 	this->resources.initTextures();
 	this->initVariables(maxbee, maxfood, lifelen);
-	this->initWindow();
+	this->initWindow(width,height);
 	this->initMenu();
 	this->initFont();
 }
@@ -343,7 +346,7 @@ void Game::bugNestCollison() {
 void Game::spawnBugs() {
 	if (this->bug.size() < this->maxBugs) {
 		if (this->nest.counter >= foodrequired) {
-			std::cout << "max bugs: " << maxBugs << '\n' << "bug amount: " << this->bug.size() << std::endl;
+			//std::cout << "max bugs: " << maxBugs << '\n' << "bug amount: " << this->bug.size() << std::endl;
 			this->bug.push_back(Insect(nest.sprite.getPosition().x + 20, nest.sprite.getPosition().y + 30,resources.bugtexture, mvmspeed, lifelength));
 			this->nest.counter -= foodrequired;
 		}
@@ -402,9 +405,9 @@ void Game::playerFoodCollision()
 
 void Game::textupdate()
 {
-	foodamount.setString("food amount: " + std::to_string(nest.counter));
-	foodamount.setPosition(nest.sprite.getPosition().x, nest.sprite.getPosition().y);
-	texts[0].setString("current max food: " + std::to_string(maxFood));
+	foodamount.setString("food accumulated: " + std::to_string(nest.counter));
+	foodamount.setPosition(nest.sprite.getPosition().x -30, nest.sprite.getPosition().y-5);
+	texts[0].setString("current max \nfood: " + std::to_string(maxFood));
 	float f = float(spawnTimerMax) / float(FRAMERATE);
 	std::stringstream stream;
 	stream.precision(3);
@@ -415,8 +418,8 @@ void Game::textupdate()
 	texts[1].setString("current respawn rate:\n" + str + " sec.");
 	texts[2].setString("current max amount \nof bugs: " + std::to_string(maxBugs));
 	texts[3].setString("food required to \nspawn a new bug: " + std::to_string(foodrequired));
-	texts[4].setString("current new bug life \nlength (in seconds): " + std::to_string(lifelength));
-	texts[5].setString("current new bug speed: \n" + std::to_string(mvmspeed));
+	texts[4].setString("new bug life \nlength (in seconds): " + std::to_string(lifelength));
+	texts[5].setString("new bug average \nspeed: " + std::to_string(int(mvmspeed)));
 	currentbugsamounttxt.setString("Bugs: " + std::to_string(size(bug)));
 	//currentbugsamounttxt.setString("Bugs: " + std::to_string(size(bug)));
 
