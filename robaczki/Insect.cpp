@@ -64,7 +64,7 @@ void Insect::update(sf::RenderTarget* target,int nestx)
 void Insect::updateInput()
 {
 	// Keyboard input
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		this->sprite.move(-this->movementSpeed, 0.f);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
@@ -75,7 +75,7 @@ void Insect::updateInput()
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		this->sprite.move(0.f, this->movementSpeed);
-	}
+	}*/
 }
 
 void Insect::render(sf::RenderTarget* target)

@@ -2,8 +2,6 @@
 #include "Game.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 #include <SFML/System.hpp>
 #include <time.h>
 #include <random>
@@ -64,8 +62,8 @@ int main() {
         else if (choice == 's' || choice == 'S') {
             std::cout << "Enter the width of the window (800:1920): ";
             width = getValidInput(800, 1920);
-            std::cout << "Enter the height of the window (600:1080): ";
-            height = getValidInput(600, 1080);
+            std::cout << "Enter the height of the window (650:1080): ";
+            height = getValidInput(650, 1080);
             std::cout << "Using specified window size - Width: " << width << ", Height: " << height << "." << std::endl;
             break;
         }
