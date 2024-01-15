@@ -78,7 +78,7 @@ int main() {
         // User's choice of initial game state
         int option;
 
-        std::cout << "List of settings:\n Default:\n 1) 20 bees, 400 maximum food, 20 seconds of life.\n 2) 40 bees, 100 maximum food, 10 seconds of life.  \n 3) Manual settings \n 4) Determine all parameters in the simulation\nChoice: ";
+        std::cout << "List of settings:\n Default:\n 1) 20 bees, 400 maximum food, 20 seconds of life.\n 2) 30 bees, 50 maximum food, 8 seconds of life.  \n Specified:\n 3) Manual settings \n 4) Determine all parameters in the simulation\nChoice: ";
         option = getValidInput(1, 4);
 
         switch (option) {
@@ -88,9 +88,9 @@ int main() {
             lifelength = 20;
             break;
         case 2:
-            maxbee = 40;
-            maxfood = 100;
-            lifelength = 10;
+            maxbee = 30;
+            maxfood = 50;
+            lifelength = 8;
             break;
         case 3:
             std::cout << "Set max amount of bugs (1:80): ";

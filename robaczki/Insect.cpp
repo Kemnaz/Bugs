@@ -39,7 +39,7 @@ void Insect::update(sf::RenderTarget* target,int nestx)
 {
 	//Window bounds collision
 
-	this->updateInput();
+	//this->updateInput();
 	/*if (hasFood) {
 		if (sprite.getPosition().x < nestx) {
 			sprite.setScale(-1.0f, 1.0f);
