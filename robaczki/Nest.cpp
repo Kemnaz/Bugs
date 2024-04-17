@@ -18,7 +18,7 @@ Nest::~Nest()
 
 void Nest::followMouse(sf::RenderWindow* window)
 {
-	if (!(sf::Mouse::getPosition(*window).x > window->getSize().x - 260 || sf::Mouse::getPosition(*window).x < 120)) {
+	if ( sf::Mouse::getPosition(*window).x < window->getSize().x - 400 && sf::Mouse::getPosition(*window).x > 200 && sf::Mouse::getPosition(*window).y > 50 && sf::Mouse::getPosition(*window).y < window->getSize().y-50) {
 		this->sprite.setPosition(sf::Mouse::getPosition(*window).x - this->sprite.getLocalBounds().width / 1.5, sf::Mouse::getPosition(*window).y - this->sprite.getLocalBounds().height / 1.5);
 
 	}
